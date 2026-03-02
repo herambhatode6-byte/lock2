@@ -1,14 +1,5 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  return NextResponse.json({
-    authorized: true,
-    defaultConcurrency: 300
-  });
+  return NextResponse.json(true);
 }
-
-// import { NextResponse } from 'next/server';
-
-// export async function GET() {
-//   return NextResponse.json(true);
-// }
