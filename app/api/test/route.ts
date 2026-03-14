@@ -11,5 +11,5 @@ export async function GET(request: NextRequest) {
     if (!whitelist.includes(appId || "")) {
         return NextResponse.json({ error: "Invalid appId" }, { status: 400 });
     }
-  return NextResponse.json({ status: "true", defaultConcurrency:200 });
+  return NextResponse.json({ authorized: "true", defaultConcurrency:200 });
 }
