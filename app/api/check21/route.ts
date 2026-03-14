@@ -3,6 +3,6 @@ import { NextResponse } from 'next/server';
 export async function GET() {
   return NextResponse.json({
     authorized: true,
-    defaultConcurrency: 300
+    defaultConcurrency: 222
   });
 }
