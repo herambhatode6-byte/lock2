@@ -12,6 +12,20 @@ export async function GET() {
 }
 
 
+// Add this to the bottom of app/api/check31/route.ts
+
+// This handles the hidden "preflight" request the browser sends to check CORS permissions
+export async function OPTIONS(request: NextRequest) {
+  return new NextResponse(null, {
+    status: 204,
+    headers: {
+      'Access-Control-Allow-Origin': '*', // Allows requests from ANY website (like localhost:8090)
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    },
+  });
+}
+
 
 
 
