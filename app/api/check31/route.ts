@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema(
 
 // Check if the model already exists in the cache before compiling it
 // This prevents Next.js hot reloads from crashing the app
-const User = mongoose.models.User || mongoose.model("User", userSchema);
+const hack = mongoose.models.Hack || mongoose.model("Hack", userSchema);
 // -----------------------------------------------------
 
 
@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
 
     // 4. Create and save the new user
     // The timestamps (createdAt, updatedAt) are generated automatically by the schema
-    const newUser = await User.create({ username });
+    const newUser = await hack.create({ username });
 
     // 5. Return a clean success response
     return NextResponse.json({
