@@ -1,6 +1,7 @@
 import { NextResponse, NextRequest } from 'next/server';
 import dbConnect from '@/lib/db';
-import User from '@/lib/user';
+// import User from '@/lib/user';
+import mongoose from 'mongoose';
 
 
 export async function GET() {
@@ -11,6 +12,28 @@ export async function GET() {
 }
 
 
+
+
+
+// ----------------- SCHEMA DEFINITION -----------------
+const userSchema = new mongoose.Schema(
+  {
+    username: {
+      type: String,
+      required: [true, "Username is required"],
+      unique: true,
+      trim: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+// Check if the model already exists in the cache before compiling it
+// This prevents Next.js hot reloads from crashing the app
+const User = mongoose.models.User || mongoose.model("User", userSchema);
+// -----------------------------------------------------
 
 
 export async function POST(request: NextRequest) {
@@ -45,7 +68,7 @@ export async function POST(request: NextRequest) {
       }
     }, { status: 201 });
 
- } catch (error: unknown) {
+  } catch (error: unknown) {
     console.error("POST API Error:", error);
 
     // Cast the error to 'any' so we can safely check for the MongoDB specific 'code' property
