@@ -1,4 +1,6 @@
 import { NextResponse, NextRequest } from 'next/server';
+import dbConnect from '@/lib/db';
+import User from '@/lib/user';
 
 
 export async function GET() {
@@ -10,9 +12,6 @@ export async function GET() {
 
 
 
-
-import dbConnect from "@/lib/db"; // Adjust this path based on your folder structure
-import User from "@/lib/user"; // Adjust this path based on your folder structure
 
 export async function POST(request: NextRequest) {
   try {
