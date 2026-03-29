@@ -1,7 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 
-const whitelist = ["client1", "client2", "client3", "client4"];
-const blacklist = ["client5", "client6"];
+const whitelist = ["client1", "client2", "client3", "client4", "client5"];
+const blacklist = ["client7", "client6"];
 
 export async function GET(request: NextRequest) {
     const appId = request.nextUrl.searchParams.get("appId");
