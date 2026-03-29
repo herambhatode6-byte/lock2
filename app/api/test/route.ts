@@ -12,8 +12,12 @@ export async function GET(request: NextRequest) {
     }
 
     // 2. Check blacklist
+    // Next.js API update
     if (blacklist.includes(appId)) {
-        return NextResponse.json({ authorized: false, error: "AppId is blacklisted" }, { status: 403 });
+        return NextResponse.json({ 
+            authorized: false, // Explicitly tell Go it's false
+            error: "AppId is blacklisted" 
+        }, { status: 403 });
     }
 
     // 3. Check whitelist
