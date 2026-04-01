@@ -1,7 +1,8 @@
 import { NextResponse, NextRequest } from "next/server";
 
-const whitelist = ["client1", "client2", "client3", "client4", "client5", "deepak"];
+const whitelist = ["client1", "client2", "client3", "client4", "client5", "deepakpatna"];
 const blacklist = ["client7", "client6"];
+const greylist = ["deepak", "client9"];
 
 export async function GET(request: NextRequest) {
     const appId = request.nextUrl.searchParams.get("appId");
@@ -20,12 +21,22 @@ export async function GET(request: NextRequest) {
         }, { status: 403 });
     }
 
+
     // 3. Check whitelist
     if (!whitelist.includes(appId)) {
         return NextResponse.json({ authorized: false, error: "Invalid appId" }, { status: 401 });
     }
 
-    // 4. Success - NOTE: authorized is now a boolean true, not a string "true"
+    // 4. Check greylist - This is optional and depends on your specific use case. You can choose to treat greylisted clients as authorized but with a warning or reduced concurrency.
+    if (greylist.includes(appId)) {
+        return NextResponse.json({ 
+            authorized: true, // Still authorized, but with a lower concurrency
+            defaultConcurrency: 2, // You can choose to set a lower concurrency for greylisted clients 
+        }, { status: 200 });
+    }
+
+
+    // 5. Success - NOTE: authorized is now a boolean true, not a string "true"
     return NextResponse.json({ 
         authorized: true, 
         defaultConcurrency: 200 
