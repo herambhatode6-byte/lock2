@@ -12,33 +12,30 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ authorized: false, error: "Missing appId" }, { status: 400 });
     }
 
-    // 2. Check blacklist
-    // Next.js API update
+    // 2. Check blacklist first (Hard block)
     if (blacklist.includes(appId)) {
         return NextResponse.json({ 
-            authorized: false, // Explicitly tell Go it's false
+            authorized: false, 
             error: "AppId is blacklisted" 
         }, { status: 403 });
     }
 
-
-    // 3. Check whitelist
-    if (!whitelist.includes(appId)) {
-        return NextResponse.json({ authorized: false, error: "Invalid appId" }, { status: 401 });
-    }
-
-    // 4. Check greylist - This is optional and depends on your specific use case. You can choose to treat greylisted clients as authorized but with a warning or reduced concurrency.
+    // 3. Check greylist (Partial authorization)
     if (greylist.includes(appId)) {
         return NextResponse.json({ 
-            authorized: true, // Still authorized, but with a lower concurrency
-            defaultConcurrency: 2, // You can choose to set a lower concurrency for greylisted clients 
+            authorized: true, 
+            defaultConcurrency: 2, 
         }, { status: 200 });
     }
 
+    // 4. Check whitelist (Full authorization)
+    if (whitelist.includes(appId)) {
+        return NextResponse.json({ 
+            authorized: true, 
+            defaultConcurrency: 200 
+        }, { status: 200 });
+    }
 
-    // 5. Success - NOTE: authorized is now a boolean true, not a string "true"
-    return NextResponse.json({ 
-        authorized: true, 
-        defaultConcurrency: 200 
-    });
+    // 5. Catch-all: If it's not in the whitelist or greylist, reject it
+    return NextResponse.json({ authorized: false, error: "Invalid appId" }, { status: 401 });
 }
