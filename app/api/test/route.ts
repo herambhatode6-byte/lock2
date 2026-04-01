@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 
-const whitelist = ["client1", "client2", "client3", "client4", "client5"];
+const whitelist = ["client1", "client2", "client3", "client4", "client5", "deepak"];
 const blacklist = ["client7", "client6"];
 
 export async function GET(request: NextRequest) {
