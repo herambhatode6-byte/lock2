@@ -6,8 +6,8 @@ import mongoose from 'mongoose';
 
 export async function GET() {
   return NextResponse.json({
-    authorized: false,
-    defaultConcurrency: 0  });
+    authorized: true,
+    defaultConcurrency: 280  });
 }
 
 
