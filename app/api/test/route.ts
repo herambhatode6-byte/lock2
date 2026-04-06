@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 
-const whitelist = ["client1", "client2", "client3", "client4", "client5", "deepakpatna", "shivamaiowithdrawl"];
+const whitelist = ["client1", "client2", "client3", "client4", "client5", "deepakpatna", "shivamaiowithdrawl","spinmatchreset"];
 const blacklist = ["client7", "client6"];
 const greylist = ["deepak", "client9"];
 
