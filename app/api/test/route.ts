@@ -30,10 +30,10 @@ export async function GET(request: NextRequest) {
 
     // 4. Check whitelist (Full authorization)
     if (whitelist.includes(appId)) {
-        return NextResponse.json({ 
-            authorized: true, 
-            defaultConcurrency: 200 
-        }, { status: 200 });
+    return NextResponse.json({ 
+        authorized: true, 
+        defaultConcurrency: appId === 'deepak' ? 500 : 200 
+    }, { status: 200 });
     }
 
     // 5. Catch-all: If it's not in the whitelist or greylist, reject it
