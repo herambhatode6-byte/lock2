@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
     if (whitelist.includes(appId)) {
     return NextResponse.json({ 
         authorized: true, 
-        defaultConcurrency: appId === 'spinmatchreset' ? 500 : 200 
+        defaultConcurrency: appId === 'spinmatchreset' ? 500 : 350 
     }, { status: 200 });
     }
 
